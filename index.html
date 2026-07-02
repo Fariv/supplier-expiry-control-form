@@ -1,10 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Supplier Expiry Control Form</title>
-
 <style>
 body {
   margin: 0;
@@ -109,6 +109,63 @@ textarea {
   margin-top: 6px;
 }
 
+/* CLICK TOOLTIP */
+.label-tip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: #2f3a56;
+}
+.label-tip::after {
+  content: "i";
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #eef2f8;
+  border: 1px solid #b8c4d8;
+  color: #2f4f88;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.tooltip-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 24px;
+  z-index: 20;
+  width: 330px;
+  background: #1f2d4d;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+  box-shadow: 0 8px 20px rgba(31, 45, 77, 0.22);
+}
+.tooltip-content ul {
+  margin: 0;
+  padding-left: 18px;
+}
+.tooltip-content li {
+  margin-bottom: 5px;
+}
+.tooltip-content li:last-child {
+  margin-bottom: 0;
+}
+.label-tip:focus {
+  outline: none;
+}
+.label-tip:focus .tooltip-content,
+.label-tip:active .tooltip-content {
+  display: block;
+}
+
 /* MULTI TAG STYLE */
 .multi {
   border: 1px solid #d6dce8;
@@ -150,98 +207,83 @@ textarea {
   cursor: pointer;
 }
 </style>
-
 </head>
-
 <body>
-
 <div class="header">
-  <div class="logo">CLARKSONS</div>
-  <div class="nav">
-    <div>My Tasks</div>
-    <div>Port Call Planner</div>
-    <div>Agency Appointments</div>
-    <div>Sales</div>
-    <div>Purchases</div>
-    <div class="active">Tables</div>
-    <div>System</div>
-  </div>
+<div class="logo">CLARKSONS</div>
+<div class="nav">
+<div>My Tasks</div>
+<div>Port Call Planner</div>
+<div>Agency Appointments</div>
+<div>Sales</div>
+<div>Purchases</div>
+<div class="active">Tables</div>
+<div>System</div>
 </div>
-
+</div>
 <div class="container">
-  <div class="card">
-
-    <div class="title-row">
-      <div class="title">Supplier Expiry Control Form</div>
-      <div class="title-log">Last Triggered At: 2026-07-02 14:30</div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="desc">
+<div class="card">
+<div class="title-row">
+<div class="title">Supplier Expiry Control Form</div>
+<div class="title-log">Last Triggered At: 2026-07-02 14:30</div>
+</div>
+<div class="divider"></div>
+<div class="desc">
       This form controls the supplier expiry process, including period configuration, applicable supplier categories, approval statuses, expiry status, email notification settings, and template content.
     </div>
+<div class="form-group">
+<label><span class="label-tip" tabindex="0">Period (Months)<span class="tooltip-content"><ul><li>Defines the validity duration of a supplier after approval</li><li>Value must be provided in months (e.g., 36 = 3 years)</li><li>Used in expiry date calculation</li></ul></span></span> <span class="req">*</span></label>
+<input type="number" value="36"/>
+<div class="help">Example: 36 months = 3 years</div>
+</div>
+<div class="form-group">
+<label><span class="label-tip" tabindex="0">Supplier Category to Set Period<span class="tooltip-content"><ul><li>Determines which supplier categories the expiry rule applies to</li><li>Supports multiple selection</li><li>Only selected categories will trigger expiry logic</li></ul></span></span> <span class="req">*</span></label>
+<div class="multi">
+<div class="tag">Managed <span class="close">×</span></div>
+<div class="tag">Preferred <span class="close">×</span></div>
+<div class="tag">Approved Vendor <span class="close">×</span></div>
+</div>
+</div>
+<div class="form-group">
+<label><span class="label-tip" tabindex="0">Approved Status<span class="tooltip-content"><ul><li>Defines which supplier statuses trigger expiry date calculation</li><li>Supports multiple selection</li><li>Expiry date is calculated when supplier status matches any selected value</li></ul></span></span> <span class="req">*</span></label>
+<div class="multi">
+<div class="tag">Approved <span class="close">×</span></div>
+<div class="tag">Re-Approved <span class="close">×</span></div>
+<div class="tag">Active <span class="close">×</span></div>
+</div>
+</div>
+<div class="form-group">
+<label><span class="label-tip" tabindex="0">Expired Status<span class="tooltip-content"><ul><li>Defines the status assigned when a supplier reaches its expiry date</li><li>Single selection only</li><li>Used by system to automatically update supplier status</li><li>Suppliers with this status will not be allowed for Purchase Invoice approval</li></ul></span></span> <span class="req">*</span></label>
+<select>
+<option>Expired</option>
+<option>Inactive</option>
+</select>
+</div>
+<div class="form-group">
+<label><span class="label-tip" tabindex="0">Mail Send Before Expiry Date (Days)<span class="tooltip-content"><ul><li>Specifies how many days before expiry the notification email is sent</li><li>Must be a numeric value (e.g., 30)</li><li>Used by background job to trigger notifications</li></ul></span></span> <span class="req">*</span></label>
+<input type="number" value="30"/>
+</div>
 
-    <div class="form-group">
-      <label>Period (Months) <span class="req">*</span></label>
-      <input type="number" value="36">
-      <div class="help">Example: 36 months = 3 years</div>
-    </div>
-
-    <div class="form-group">
-      <label>Supplier Category to Set Period <span class="req">*</span></label>
-      <div class="multi">
-        <div class="tag">Managed <span class="close">×</span></div>
-        <div class="tag">Preferred <span class="close">×</span></div>
-        <div class="tag">Approved Vendor <span class="close">×</span></div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Approved Status <span class="req">*</span></label>
-      <div class="multi">
-        <div class="tag">Approved <span class="close">×</span></div>
-        <div class="tag">Re-Approved <span class="close">×</span></div>
-        <div class="tag">Active <span class="close">×</span></div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Expired Status <span class="req">*</span></label>
-      <select>
-        <option>Expired</option>
-        <option>Inactive</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Mail Send Before Expiry Date (Days) <span class="req">*</span></label>
-      <input type="number" value="30">
-    </div>
-
-    <div class="form-group">
-      <label>User Group <span class="req">*</span></label>
-      <div class="multi">
-        <div class="tag">Super user <span class="close">×</span></div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Email To <span class="req">*</span></label>
-      <div class="multi">
-        <div class="tag">John Doe <span class="close">×</span></div>
-        <div class="tag">Smith Johnson <span class="close">×</span></div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Subject <span class="req">*</span></label>
-      <input type="text" value="Supplier Expiry Notification – {supplier_name} ({supplier_number})">
-    </div>
-
-    <div class="form-group">
-      <label>Body <span class="req">*</span></label>
-      <textarea>
+<div class="form-group">
+<label><span class="label-tip" tabindex="0">User Group<span class="tooltip-content"><ul><li>Defines user groups associated with this configuration</li><li>Supports multiple selection</li><li>Default value: “Super user”</li><li>Used for access control and notification targeting</li></ul></span></span> <span class="req">*</span></label>
+<div class="multi">
+<div class="tag">Super user <span class="close">×</span></div>
+</div>
+</div>
+<div class="form-group">
+<label><span class="label-tip" tabindex="0">Email To<span class="tooltip-content"><ul><li>Defines recipients of expiry notification emails</li><li>Supports multiple selection</li><li>Must include at least one recipient</li></ul></span></span> <span class="req">*</span></label>
+<div class="multi">
+<div class="tag">John Doe <span class="close">×</span></div>
+<div class="tag">Smith Johnson <span class="close">×</span></div>
+</div>
+</div>
+<div class="form-group">
+<label><span class="label-tip" tabindex="0">Subject<span class="tooltip-content"><ul><li>Defines the email subject line for expiry notifications</li><li>Supports dynamic placeholders: {supplier_name} {supplier_number}</li></ul></span></span> <span class="req">*</span></label>
+<input type="text" value="Supplier Expiry Notification – {supplier_name} ({supplier_number})"/>
+</div>
+<div class="form-group">
+<label><span class="label-tip" tabindex="0">Body<span class="tooltip-content"><ul><li>Defines the email content sent before supplier expiry</li><li>Supports dynamic placeholders: {supplier_name} {supplier_number}</li><li>Should clearly communicate required action</li></ul></span></span> <span class="req">*</span></label>
+<textarea>
 Dear Team,
 
 This is a reminder that the supplier associated with the following customer is approaching its expiry date:
@@ -258,14 +300,10 @@ For any questions or assistance, please contact the relevant team.
 Kind regards,
 System Notification
       </textarea>
-    </div>
-
-    <div class="actions">
-      <button class="btn">Save</button>
-    </div>
-
-  </div>
 </div>
-
+<div class="actions">
+</div>
+</div>
+</div>
 </body>
 </html>
