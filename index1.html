@@ -49,22 +49,11 @@ body {
   margin: auto;
 }
 
-/* TITLE ROW */
-.title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 .title {
   font-size: 18px;
   font-weight: 600;
   color: #2f4f88;
 }
-.title-log {
-  font-size: 12px;
-  color: #7a869a;
-}
-
 .divider {
   height: 1px;
   background: #dcdfe6;
@@ -171,11 +160,7 @@ textarea {
 <div class="container">
   <div class="card">
 
-    <div class="title-row">
-      <div class="title">Supplier Expiry Control Form</div>
-      <div class="title-log">Last Triggered At: 2026-07-02 14:30</div>
-    </div>
-
+    <div class="title">Supplier Expiry Control Form</div>
     <div class="divider"></div>
 
     <div class="desc">
@@ -220,23 +205,16 @@ textarea {
     </div>
 
     <div class="form-group">
-      <label>User Group <span class="req">*</span></label>
-      <div class="multi">
-        <div class="tag">Super user <span class="close">×</span></div>
-      </div>
-    </div>
-
-    <div class="form-group">
       <label>Email To <span class="req">*</span></label>
       <div class="multi">
-        <div class="tag">John Doe <span class="close">×</span></div>
-        <div class="tag">Smith Johnson <span class="close">×</span></div>
+        <div class="tag">Finance Team <span class="close">×</span></div>
+        <div class="tag">Supplier Admin <span class="close">×</span></div>
       </div>
     </div>
 
     <div class="form-group">
       <label>Subject <span class="req">*</span></label>
-      <input type="text" value="Supplier Expiry Notification – {supplier_name} ({supplier_number})">
+      <input type="text" value="Supplier Expiry Notification – {customer_name} ({customer_number})">
     </div>
 
     <div class="form-group">
@@ -246,8 +224,8 @@ Dear Team,
 
 This is a reminder that the supplier associated with the following customer is approaching its expiry date:
 
-Supplier Name: {supplier_name}
-Supplier Number: {supplier_number}
+Customer Name: {customer_name}
+Customer Number: {customer_number}
 
 Please review the supplier details and take the necessary action before the expiry date to avoid any disruption in operations.
 
